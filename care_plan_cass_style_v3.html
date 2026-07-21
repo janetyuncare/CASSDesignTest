@@ -44,7 +44,7 @@
 
     <button id="ackBtn" style="width:100%;background:#1f4a3d;color:#fff;border:none;font-weight:600;font-size:15px;padding:14px;border-radius:16px;display:flex;align-items:center;justify-content:center;gap:8px">
       <i class="ti ti-check" style="font-size:17px" aria-hidden="true"></i>
-      <span id="ackLabel">Confirm & start shift</span>
+      <span id="ackLabel">Confirm & Start Shift</span>
     </button>
 
   </div>
@@ -102,7 +102,7 @@ const children = [
   {
     id:'liam', name:'Liam, age 6', updated:'Updated yesterday', open:true,
     sections:[
-      {icon:'ti-first-aid-kit', title:'Health and safety', disclaimer:true, open:true, rows:[
+      {icon:'ti-first-aid-kit', title:'Health and medical', disclaimer:true, open:true, rows:[
         ['Allergies','Peanuts. EpiPen in kitchen drawer.'],
         ['Conditions','Mild asthma, uses inhaler if wheezing.'],
         ['Medication reminder','None scheduled today.']]},
@@ -118,7 +118,7 @@ const children = [
   {
     id:'ava', name:'Ava, age 3', updated:'Updated 5 days ago', open:false,
     sections:[
-      {icon:'ti-first-aid-kit', title:'Health and safety', disclaimer:true, rows:[
+      {icon:'ti-first-aid-kit', title:'Health and medical', disclaimer:true, rows:[
         ['Allergies','None on file.'],
         ['Conditions','None on file.'],
         ['Medication reminder','None scheduled today.']]},
@@ -157,7 +157,7 @@ function renderChildren(){
             ${s.open ? `
               ${s.disclaimer ? `<div style="display:flex;gap:5px;align-items:center;background:#fff;border-radius:8px;padding:6px 8px;margin-bottom:8px;white-space:nowrap;overflow:hidden">
                 <i class="ti ti-info-circle" style="font-size:12px;color:#8a8a86;flex-shrink:0" aria-hidden="true"></i>
-                <p style="font-size:10px;color:#8a8a86;margin:0;text-overflow:ellipsis;overflow:hidden">Reference only — Confirm health protocols with family.</p>
+                <p style="font-size:10px;color:#8a8a86;margin:0;text-overflow:ellipsis;overflow:hidden">Reference only — Confirm health protocol with family.</p>
               </div>` : ''}
               ${s.rows.map((r,ri) => `<p style="font-size:12.5px;margin:0 0 ${ri < s.rows.length-1 ? '5px' : '0'};color:#4a4a45"><span style="color:#8a8a86">${r[0]} · </span>${r[1]}</p>`).join('')}
             ` : ''}
