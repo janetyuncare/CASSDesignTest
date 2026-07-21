@@ -28,11 +28,11 @@
 
   <div style="padding:16px 16px 18px;display:flex;flex-direction:column;gap:14px">
 
-    <p style="font-weight:600;font-size:15px;color:#1a1a17;margin:0 2px">Pre-shift checklist</p>
+    <p style="font-weight:600;font-size:15px;color:#1a1a17;margin:0 2px">Safety Review</p>
 
     <div style="background:#fff;border-radius:16px;padding:2px 4px">
       <button id="checklistToggle" style="all:unset;cursor:pointer;display:flex;align-items:center;justify-content:space-between;width:100%;padding:14px;box-sizing:border-box">
-        <span style="font-weight:600;font-size:15px;color:#1a1a17">First 15 min</span>
+        <span style="font-weight:600;font-size:15px;color:#1a1a17">Pre-shift Checklist (first 15 min)</span>
         <svg id="checklistChevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8a8a86" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>
       </button>
       <div id="checklistBody" style="padding:0 14px 12px"></div>
@@ -157,7 +157,7 @@ function renderChildren(){
             ${s.open ? `
               ${s.disclaimer ? `<div style="display:flex;gap:5px;align-items:center;background:#fff;border-radius:8px;padding:6px 8px;margin-bottom:8px;white-space:nowrap;overflow:hidden">
                 <i class="ti ti-info-circle" style="font-size:12px;color:#8a8a86;flex-shrink:0" aria-hidden="true"></i>
-                <p style="font-size:10px;color:#8a8a86;margin:0;text-overflow:ellipsis;overflow:hidden">Reference only — confirm dosage with family.</p>
+                <p style="font-size:10px;color:#8a8a86;margin:0;text-overflow:ellipsis;overflow:hidden">Reference only — Confirm health protocols with family.</p>
               </div>` : ''}
               ${s.rows.map((r,ri) => `<p style="font-size:12.5px;margin:0 0 ${ri < s.rows.length-1 ? '5px' : '0'};color:#4a4a45"><span style="color:#8a8a86">${r[0]} · </span>${r[1]}</p>`).join('')}
             ` : ''}
