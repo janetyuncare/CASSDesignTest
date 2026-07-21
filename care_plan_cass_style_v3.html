@@ -10,7 +10,7 @@
   <div style="background:#1f4a3d;padding:16px 18px 18px;position:relative">
     <div style="width:110px;height:22px;background:#0d0d0d;border-radius:12px;margin:0 auto 14px"></div>
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
-      <span style="color:#fff;font-size:15px;font-weight:500">9:02</span>
+      <span id="clockTime" style="color:#fff;font-size:15px;font-weight:500"></span>
       <div style="display:flex;gap:5px;align-items:center">
         <i class="ti ti-antenna-bars-5" style="font-size:15px;color:#fff" aria-hidden="true"></i>
         <i class="ti ti-wifi" style="font-size:15px;color:#fff" aria-hidden="true"></i>
@@ -18,7 +18,7 @@
       </div>
     </div>
     <div style="display:flex;align-items:center;gap:6px;margin-bottom:10px">
-      <div style="width:20px;height:20px;border-radius:6px;background:#c8e08a;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:#1f4a3d">C</div>      <span style="color:#fff;font-size:13px">Care.com</span>
+      <div style="width:20px;height:20px;border-radius:6px;background:#c8e08a;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:#1f4a3d">C</div>
       <span style="color:#fff;font-size:13px">Care.com</span>
       <span style="color:#c8e08a;font-size:13px">· Caregiver</span>
     </div>
@@ -27,20 +27,16 @@
   </div>
 
   <div style="padding:16px 16px 18px;display:flex;flex-direction:column;gap:14px">
-    
+
     <p style="font-weight:600;font-size:15px;color:#1a1a17;margin:0 2px">Safety Review</p>
-    
- <div style="background:#fff;border-radius:16px;padding:2px 4px">
-      <button id="checklistToggle" style="all:unset;cursor:pointer;display:flex;align-items:center;justify-content:space-between;width:100%;padding:14px;box-sizing:border-box">
-        <span style="font-weight:600;font-size:15px;color:#1a1a17">Pre-Shift Checklist (first 15 min)</span>
-        <svg id="checklistChevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8a8a86" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>
-      </button>
-      <div id="checklistBody" style="padding:0 14px 14px;display:flex;flex-direction:column;gap:8px"></div>
-    </div>
+
+    <div style="background:#fff;border-radius:16px;padding:2px 4px" id="checklistCard"></div>
 
     <p style="font-weight:600;font-size:15px;color:#1a1a17;margin:0 2px">Care plan</p>
 
     <div id="childCards" style="display:flex;flex-direction:column;gap:12px"></div>
+
+    <p id="ackHint" style="font-size:11.5px;color:#a1554a;margin:0 2px;display:none">Expand and check off each section to start the shift.</p>
 
     <button id="ackBtn" style="width:100%;background:#1f4a3d;color:#fff;border:none;font-weight:600;font-size:15px;padding:14px;border-radius:16px;display:flex;align-items:center;justify-content:center;gap:8px">
       <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
@@ -88,34 +84,73 @@
 </div>
 
 <script>
+function updateClock(){
+  const now = new Date();
+  const hours = now.getHours();
+  const minutes = now.getMinutes().toString().padStart(2, '0');
+  document.getElementById('clockTime').textContent = `${hours}:${minutes}`;
+}
+updateClock();
+
 function chevronSvg(open, size, color){
   const pts = open ? '18 15 12 9 6 15' : '6 9 12 15 18 9';
   return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="${color}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><polyline points="${pts}"></polyline></svg>`;
 }
 
+// light green bg + dark green check when checked, matching the checklist item style; muted/disabled when its section is collapsed
+function checkCircle(checked, unlocked, size){
+  const bg = checked ? '#e3efce' : '#f4f2ec';
+  const border = checked ? '#e3efce' : (unlocked ? '#c9c6ba' : '#e2e0d8');
+  return `<span style="width:${size}px;height:${size}px;border-radius:50%;border:2px solid ${border};background:${bg};display:flex;align-items:center;justify-content:center;flex-shrink:0;opacity:${unlocked ? 1 : 0.55};transition:background .15s,border-color .15s">
+    ${checked ? `<svg width="${size*0.55}" height="${size*0.55}" viewBox="0 0 24 24" fill="none" stroke="#3b6d11" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>` : ''}
+  </span>`;
+}
+
+const state = {
+  checklistOpen: true,
+  checklistChecked: false
+};
+
 const checklist = [
   'Front door locked','Child count confirmed (2)','Hazards scanned','Care plan reviewed'
 ];
-let checklistOpen = true;
 
-function renderChecklist(){
-  document.getElementById('checklistBody').innerHTML = checklist.map(item => `
-    <div style="background:#f4f2ec;border-radius:12px;padding:9px 12px;display:flex;align-items:center;gap:9px">
-      <div style="width:18px;height:18px;border-radius:50%;background:#e3efce;display:flex;align-items:center;justify-content:center;flex-shrink:0">
-        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#3b6d11" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-      </div>
-      <span style="font-size:12.5px;color:#4a4a45">${item}</span>
+function renderChecklistCard(){
+  const card = document.getElementById('checklistCard');
+  const unlocked = state.checklistOpen;
+  card.innerHTML = `
+    <div style="display:flex;align-items:center;gap:9px;padding:11px 12px">
+      <button class="ack-check" data-type="checklist" ${unlocked ? '' : 'disabled'} style="all:unset;cursor:${unlocked ? 'pointer' : 'not-allowed'};display:flex;flex-shrink:0">${checkCircle(state.checklistChecked, unlocked, 20)}</button>
+      <button class="title-toggle" data-type="checklist" style="all:unset;cursor:pointer;flex:1;display:flex;align-items:center;justify-content:space-between;box-sizing:border-box">
+        <span style="font-weight:600;font-size:14px;color:#1a1a17">Pre-Shift Checklist</span>
+        ${chevronSvg(state.checklistOpen, 15, '#8a8a86')}
+      </button>
     </div>
-  `).join('');
-  document.getElementById('checklistBody').style.display = checklistOpen ? 'flex' : 'none';
-  document.getElementById('checklistChevron').outerHTML = chevronSvg(checklistOpen, 16, '#8a8a86').replace('<svg', '<svg id="checklistChevron"');
+    ${state.checklistOpen ? `<div style="padding:0 12px 10px 41px;display:flex;flex-direction:column;gap:4px">
+      ${checklist.map(item => `
+        <p style="font-size:12px;color:#4a4a45;margin:0;padding:3px 2px">${item}</p>
+      `).join('')}
+    </div>` : ''}
+  `;
+
+  card.querySelector('.ack-check').addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (!state.checklistOpen) return;
+    state.checklistChecked = !state.checklistChecked;
+    renderChecklistCard();
+    updateAckButton();
+  });
+  card.querySelector('.title-toggle').addEventListener('click', () => {
+    state.checklistOpen = !state.checklistOpen;
+    if (!state.checklistOpen) { /* keep checked state as-is, just relock visually */ }
+    renderChecklistCard();
+    updateAckButton();
+  });
 }
-document.getElementById('checklistToggle').addEventListener('click', () => { checklistOpen = !checklistOpen; renderChecklist(); });
-renderChecklist();
 
 const children = [
   {
-    id:'liam', name:'Liam, age 6', updated:'Updated yesterday', open:true,
+    id:'liam', name:'Liam, age 6', updated:'Updated yesterday', open:true, checked:false,
     sections:[
       {icon:'first-aid', title:'Health and safety', disclaimer:true, open:true, rows:[
         ['Allergies','Peanuts. EpiPen in kitchen drawer.'],
@@ -131,7 +166,7 @@ const children = [
     ]
   },
   {
-    id:'ava', name:'Ava, age 3', updated:'Updated 5 days ago', open:false,
+    id:'ava', name:'Ava, age 3', updated:'Updated 5 days ago', open:false, checked:false,
     sections:[
       {icon:'first-aid', title:'Health and medical', disclaimer:true, rows:[
         ['Allergies','None on file.'],
@@ -143,7 +178,7 @@ const children = [
       {icon:'smile', title:'Behavior and preferences', rows:[
         ['Notes','Shy with new people, warms up after 10-15 min.']]},
       {icon:'phone', title:'Emergency info', rows:[
-        ['1. Mom','555-0100'],['2. Grandma','555-0110'],]}
+        ['1. Mom','555-0100'],['2. Grandma','555-0110']]}
     ]
   }
 ];
@@ -162,13 +197,16 @@ function renderChildren(){
   const el = document.getElementById('childCards');
   el.innerHTML = children.map((c,ci) => `
     <div style="background:#fff;border-radius:16px;padding:2px 4px">
-      <button class="child-toggle" data-i="${ci}" style="all:unset;cursor:pointer;display:flex;align-items:center;justify-content:space-between;width:100%;padding:14px;box-sizing:border-box">
-        <span style="display:flex;align-items:baseline;gap:8px">
-          <span style="font-weight:600;font-size:15px;color:#1a1a17">${c.name}</span>
-          <span style="font-size:11px;color:#8a8a86">${c.updated}</span>
-        </span>
-        ${chevronSvg(c.open, 16, '#8a8a86')}
-      </button>
+      <div style="display:flex;align-items:center;gap:9px;padding:12px 14px">
+        <button class="ack-check" data-ci="${ci}" ${c.open ? '' : 'disabled'} style="all:unset;cursor:${c.open ? 'pointer' : 'not-allowed'};display:flex;flex-shrink:0">${checkCircle(c.checked, c.open, 20)}</button>
+        <button class="child-toggle" data-i="${ci}" style="all:unset;cursor:pointer;flex:1;display:flex;align-items:center;justify-content:space-between;box-sizing:border-box">
+          <span style="display:flex;align-items:baseline;gap:8px">
+            <span style="font-weight:600;font-size:15px;color:#1a1a17">${c.name}</span>
+            <span style="font-size:11px;color:#8a8a86">${c.updated}</span>
+          </span>
+          ${chevronSvg(c.open, 16, '#8a8a86')}
+        </button>
+      </div>
       ${c.open ? `<div style="padding:0 14px 14px;display:flex;flex-direction:column;gap:8px">
         ${c.sections.map((s,si) => `
           <div style="background:#f4f2ec;border-radius:12px;padding:10px 12px">
@@ -192,9 +230,18 @@ function renderChildren(){
     </div>
   `).join('');
 
+  el.querySelectorAll('.ack-check').forEach(btn => btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const ci = parseInt(btn.dataset.ci);
+    if (!children[ci].open) return;
+    children[ci].checked = !children[ci].checked;
+    renderChildren();
+    updateAckButton();
+  }));
   el.querySelectorAll('.child-toggle').forEach(btn => btn.addEventListener('click', () => {
     children[parseInt(btn.dataset.i)].open = !children[parseInt(btn.dataset.i)].open;
     renderChildren();
+    updateAckButton();
   }));
   el.querySelectorAll('.sec-toggle').forEach(btn => btn.addEventListener('click', (e) => {
     e.stopPropagation();
@@ -203,11 +250,32 @@ function renderChildren(){
     renderChildren();
   }));
 }
+
+function allAcknowledged(){
+  return state.checklistChecked && children.every(c => c.checked);
+}
+
+function updateAckButton(){
+  const btn = document.getElementById('ackBtn');
+  const hint = document.getElementById('ackHint');
+  const ready = allAcknowledged();
+  btn.style.opacity = ready ? '1' : '0.4';
+  btn.style.cursor = ready ? 'pointer' : 'not-allowed';
+  hint.style.display = ready ? 'none' : 'block';
+}
+
+renderChecklistCard();
 renderChildren();
+updateAckButton();
 
 document.getElementById('ackBtn').addEventListener('click', function(){
+  if (!allAcknowledged()){
+    document.getElementById('ackHint').style.display = 'block';
+    return;
+  }
   document.getElementById('ackLabel').textContent = 'Confirmed at ' + new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
   this.style.opacity = '0.7';
   this.disabled = true;
+  this.style.cursor = 'default';
 });
 </script>
