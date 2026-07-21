@@ -1,0 +1,109 @@
+<div style="max-width:680px">
+<h2 class="sr-only">Care plan template with a care vertical dropdown, revised so health-related sections capture reference information only rather than medical instructions</h2>
+
+<div style="margin-bottom:1.25rem">
+  <label style="font-size:13px;color:var(--text-secondary);display:block;margin-bottom:6px">Type of care</label>
+  <select id="careType" style="width:100%">
+    <option value="child">Child care</option>
+    <option value="senior">Senior care</option>
+    <option value="adult">Adult care</option>
+    <option value="pet">Pet care</option>
+  </select>
+</div>
+
+<div id="sections"></div>
+</div>
+
+<script>
+const disclaimer = `<div style="display:flex;gap:8px;align-items:flex-start;background:var(--surface-1);border-radius:var(--radius);padding:8px 10px;margin-bottom:12px">
+  <i class="ti ti-info-circle" style="font-size:15px;color:var(--text-muted);margin-top:1px" aria-hidden="true"></i>
+  <p style="font-size:12px;color:var(--text-muted);margin:0;line-height:1.5">Reference only, not medical instruction. Confirm dosage and administration directly with the family before giving any medication.</p>
+</div>`;
+
+const data = {
+  child: [
+    {icon:'ti-first-aid-kit', title:'Health and safety', disclaimer:true, fields:[
+      {label:'Allergies', ph:'e.g. Peanuts, penicillin'},
+      {label:'Medical conditions to be aware of', ph:'e.g. Asthma, may need inhaler'},
+      {label:'Medication reminders', ph:'e.g. Reminder around 3pm, confirm details with parent'}]},
+    {icon:'ti-clock', title:'Daily routine', fields:[
+      {label:'Meals and snacks', ph:'e.g. Lunch at noon, no dairy'},
+      {label:'Nap schedule', ph:'e.g. Naps 1-3pm, needs white noise'},
+      {label:'Screen time rules', ph:'e.g. 30 min after homework'}]},
+    {icon:'ti-mood-smile', title:'Behavior and preferences', fields:[
+      {label:'Comfort items', ph:'e.g. Blue blanket for naps'},
+      {label:'Behavioral notes', ph:'e.g. Gets overwhelmed by loud noise'}]},
+    {icon:'ti-phone', title:'Emergency info', fields:[
+      {label:'Emergency contacts (in order)', ph:'e.g. 1. Mom 555-0100  2. Grandma 555-0110'},
+      {label:'Pediatrician', ph:'e.g. Dr. Lee, 555-0120'},
+      {label:'School / daycare pickup notes', ph:'e.g. Only Dad or Nanny may pick up'}]}
+  ],
+  senior: [
+    {icon:'ti-first-aid-kit', title:'Health and safety', disclaimer:true, fields:[
+      {label:'Conditions to be aware of', ph:'e.g. Diabetes, early memory loss'},
+      {label:'Medication reminders', ph:'e.g. Reminder around breakfast, confirm details with family'},
+      {label:'Mobility limitations', ph:'e.g. Uses walker, fall risk'}]},
+    {icon:'ti-heart', title:'Companionship and memory care', fields:[
+      {label:'Memory care notes', ph:'e.g. May repeat questions, redirect calmly'},
+      {label:'Favorite topics or activities', ph:'e.g. Enjoys talking about grandkids, gardening'}]},
+    {icon:'ti-car', title:'Daily living and transport', fields:[
+      {label:'Meals and dietary needs', ph:'e.g. Low sodium, soft foods only'},
+      {label:'Transport needs', ph:'e.g. Weekly ride to physical therapy, Tuesdays 10am'}]},
+    {icon:'ti-phone', title:'Emergency info', fields:[
+      {label:'Emergency contacts (in order)', ph:'e.g. 1. Daughter 555-0100  2. Son 555-0110'},
+      {label:'Physician', ph:'e.g. Dr. Patel, 555-0130'}]}
+  ],
+  adult: [
+    {icon:'ti-first-aid-kit', title:'Health and safety', disclaimer:true, fields:[
+      {label:'Conditions to be aware of', ph:'e.g. Cerebral palsy, seizure disorder'},
+      {label:'Medication reminders', ph:'e.g. Reminder around noon, confirm details with family'},
+      {label:'Sensory or physical triggers', ph:'e.g. Sensitive to bright lights, loud sounds'}]},
+    {icon:'ti-accessible', title:'Daily living support', fields:[
+      {label:'Assistance needed', ph:'e.g. Help with bathing, dressing, transfers'},
+      {label:'Structured schedule', ph:'e.g. Needs visual schedule, consistent timing'}]},
+    {icon:'ti-message-circle', title:'Communication and behavior', fields:[
+      {label:'Communication method', ph:'e.g. Uses AAC device, limited verbal speech'},
+      {label:'Calming strategies', ph:'e.g. Weighted blanket, quiet room'}]},
+    {icon:'ti-phone', title:'Emergency info', fields:[
+      {label:'Emergency contacts (in order)', ph:'e.g. 1. Parent 555-0100  2. Sibling 555-0115'},
+      {label:'Specialist / therapist', ph:'e.g. Dr. Nguyen, 555-0140'}]}
+  ],
+  pet: [
+    {icon:'ti-paw', title:'About your pet', fields:[
+      {label:'Breed, age, weight', ph:'e.g. Labrador, 4 years, 65 lbs'},
+      {label:'Temperament', ph:'e.g. Friendly, nervous around strangers'}]},
+    {icon:'ti-bone', title:'Feeding and routine', fields:[
+      {label:'Feeding schedule', ph:'e.g. 2 cups dry food, 8am and 6pm'},
+      {label:'Walk / exercise routine', ph:'e.g. 30 min walk, avoid off-leash areas'}]},
+    {icon:'ti-first-aid-kit', title:'Health and safety', disclaimer:true, fields:[
+      {label:'Conditions or allergies to be aware of', ph:'e.g. Hip dysplasia, allergic to chicken'},
+      {label:'Medication reminders', ph:'e.g. Reminder around 6pm, confirm details with owner'}]},
+    {icon:'ti-phone', title:'Emergency info', fields:[
+      {label:'Owner contact', ph:'e.g. 555-0150'},
+      {label:'Veterinarian', ph:'e.g. Oakview Vet Clinic, 555-0160'}]}
+  ]
+};
+
+function render(type){
+  const sections = data[type];
+  const el = document.getElementById('sections');
+  el.innerHTML = sections.map(s => `
+    <div style="background:var(--surface-2);border:0.5px solid var(--border);border-radius:12px;padding:1rem 1.25rem;margin-bottom:12px">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">
+        <i class="ti ${s.icon}" style="font-size:18px;color:var(--text-accent)" aria-hidden="true"></i>
+        <p style="font-weight:500;font-size:15px;margin:0">${s.title}</p>
+      </div>
+      ${s.disclaimer ? disclaimer : ''}
+      ${s.fields.map(f => `
+        <div style="margin-bottom:10px">
+          <label style="font-size:13px;color:var(--text-secondary);display:block;margin-bottom:4px">${f.label}</label>
+          <input type="text" placeholder="${f.ph}" style="width:100%" />
+        </div>
+      `).join('')}
+    </div>
+  `).join('');
+}
+
+document.getElementById('careType').addEventListener('change', e => render(e.target.value));
+render('child');
+</script>

@@ -1,0 +1,182 @@
+<div style="max-width:380px;margin:0 auto">
+<h2 class="sr-only">Caregiver app shift check-in screen with a pre-shift checklist section and a care plan section, both using matching subsection labels and card styling</h2>
+
+<div style="text-align:center;font-size:12px;letter-spacing:1px;color:#8a8a86;margin-bottom:10px;text-transform:uppercase">Caregiver — Sarah</div>
+
+<div style="background:#0d0d0d;border-radius:44px;padding:14px;box-shadow:none">
+<div style="background:#f4f2ec;border-radius:32px;overflow:hidden">
+
+  <div style="background:#1f4a3d;padding:16px 18px 18px;position:relative">
+    <div style="width:110px;height:22px;background:#0d0d0d;border-radius:12px;margin:0 auto 14px"></div>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+      <span style="color:#fff;font-size:15px;font-weight:500">9:02</span>
+      <div style="display:flex;gap:5px;align-items:center">
+        <i class="ti ti-antenna-bars-5" style="font-size:15px;color:#fff" aria-hidden="true"></i>
+        <i class="ti ti-wifi" style="font-size:15px;color:#fff" aria-hidden="true"></i>
+        <i class="ti ti-battery-2" style="font-size:15px;color:#fff" aria-hidden="true"></i>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:6px;margin-bottom:10px">
+      <div style="width:20px;height:20px;border-radius:6px;background:#c8e08a;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:#1f4a3d">C</div>
+      <span style="color:#fff;font-size:13px">Care.com</span>
+      <span style="color:#c8e08a;font-size:13px">· Caregiver</span>
+    </div>
+    <p style="color:#fff;font-size:22px;font-weight:600;margin:0 0 4px">Shift check-in</p>
+    <p style="color:#b9c9c0;font-size:13px;margin:0">Verify your arrival</p>
+  </div>
+
+  <div style="padding:16px 16px 18px;display:flex;flex-direction:column;gap:14px">
+
+    <p style="font-weight:600;font-size:15px;color:#1a1a17;margin:0 2px">Pre-shift checklist</p>
+
+    <div style="background:#fff;border-radius:16px;padding:2px 4px">
+      <button id="checklistToggle" style="all:unset;cursor:pointer;display:flex;align-items:center;justify-content:space-between;width:100%;padding:14px">
+        <span style="font-weight:600;font-size:15px;color:#1a1a17">First 15 min</span>
+        <i id="checklistChevron" class="ti ti-chevron-up" style="font-size:16px;color:#8a8a86" aria-hidden="true"></i>
+      </button>
+      <div id="checklistBody" style="padding:0 14px 12px"></div>
+    </div>
+
+    <p style="font-weight:600;font-size:15px;color:#1a1a17;margin:0 2px">Care plan</p>
+
+    <div id="childCards" style="display:flex;flex-direction:column;gap:12px"></div>
+
+    <button id="ackBtn" style="width:100%;background:#1f4a3d;color:#fff;border:none;font-weight:600;font-size:15px;padding:14px;border-radius:16px;display:flex;align-items:center;justify-content:center;gap:8px">
+      <i class="ti ti-check" style="font-size:17px" aria-hidden="true"></i>
+      <span id="ackLabel">Confirm & start shift</span>
+    </button>
+
+  </div>
+
+  <div style="display:flex;justify-content:space-around;padding:10px 8px 16px;border-top:0.5px solid #e2e0d8">
+    <div style="display:flex;flex-direction:column;align-items:center;gap:2px;color:#1f4a3d">
+      <i class="ti ti-home" style="font-size:20px" aria-hidden="true"></i>
+      <span style="font-size:11px;font-weight:500">Home</span>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:2px;color:#8a8a86">
+      <i class="ti ti-clipboard-check" style="font-size:20px" aria-hidden="true"></i>
+      <span style="font-size:11px">Tasks</span>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:2px;color:#8a8a86">
+      <i class="ti ti-camera" style="font-size:20px" aria-hidden="true"></i>
+      <span style="font-size:11px">Report</span>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:2px;color:#8a8a86">
+      <i class="ti ti-file-text" style="font-size:20px" aria-hidden="true"></i>
+      <span style="font-size:11px">Record</span>
+    </div>
+  </div>
+
+</div>
+</div>
+</div>
+
+<script>
+const checklist = [
+  'Front door locked','Child count confirmed (2)','Hazards scanned','Care plan reviewed'
+];
+let checklistOpen = true;
+
+function renderChecklist(){
+  document.getElementById('checklistBody').innerHTML = checklist.map((item,i) => `
+    <div style="display:flex;align-items:center;gap:10px;padding:9px 0;${i < checklist.length-1 ? 'border-bottom:0.5px solid #ece9e0' : ''}">
+      <div style="width:22px;height:22px;border-radius:50%;background:#e3efce;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+        <i class="ti ti-check" style="font-size:13px;color:#3b6d11" aria-hidden="true"></i>
+      </div>
+      <span style="font-size:14px;color:#4a4a45">${item}</span>
+    </div>
+  `).join('');
+  document.getElementById('checklistBody').style.display = checklistOpen ? 'block' : 'none';
+  document.getElementById('checklistChevron').className = 'ti ti-chevron-' + (checklistOpen ? 'up' : 'down');
+}
+document.getElementById('checklistToggle').addEventListener('click', () => { checklistOpen = !checklistOpen; renderChecklist(); });
+renderChecklist();
+
+const children = [
+  {
+    id:'liam', name:'Liam, age 6', updated:'Updated yesterday', open:true,
+    sections:[
+      {icon:'ti-first-aid-kit', title:'Health and safety', disclaimer:true, open:true, rows:[
+        ['Allergies','Peanuts. EpiPen in kitchen drawer.'],
+        ['Conditions','Mild asthma, uses inhaler if wheezing.'],
+        ['Medication reminder','None scheduled today.']]},
+      {icon:'ti-clock', title:'Daily routine', rows:[
+        ['Meals','Lunch at noon, no dairy.'],
+        ['Nap','1-3pm, needs white noise.']]},
+      {icon:'ti-mood-smile', title:'Behavior and preferences', rows:[
+        ['Notes','Gets overwhelmed by loud noise, use quiet corner to reset.']]},
+      {icon:'ti-phone', title:'Emergency info', rows:[
+        ['1. Mom','555-0100'],['2. Grandma','555-0110'],['Pediatrician','Dr. Lee, 555-0120']]}
+    ]
+  },
+  {
+    id:'ava', name:'Ava, age 3', updated:'Updated 5 days ago', open:false,
+    sections:[
+      {icon:'ti-first-aid-kit', title:'Health and safety', disclaimer:true, rows:[
+        ['Allergies','None on file.'],
+        ['Conditions','None on file.'],
+        ['Medication reminder','None scheduled today.']]},
+      {icon:'ti-clock', title:'Daily routine', open:true, rows:[
+        ['Meals','Snack at 2pm, cuts grapes in half.'],
+        ['Nap','12:30-2pm, needs pacifier.']]},
+      {icon:'ti-mood-smile', title:'Behavior and preferences', rows:[
+        ['Notes','Shy with new people, warms up after 10-15 min.']]},
+      {icon:'ti-phone', title:'Emergency info', rows:[
+        ['1. Mom','555-0100'],['2. Grandma','555-0110'],['Pediatrician','Dr. Lee, 555-0120']]}
+    ]
+  }
+];
+
+function renderChildren(){
+  const el = document.getElementById('childCards');
+  el.innerHTML = children.map((c,ci) => `
+    <div style="background:#fff;border-radius:16px;padding:2px 4px">
+      <button class="child-toggle" data-i="${ci}" style="all:unset;cursor:pointer;display:flex;align-items:center;justify-content:space-between;width:100%;padding:14px">
+        <span style="display:flex;align-items:baseline;gap:8px">
+          <span style="font-weight:600;font-size:15px;color:#1a1a17">${c.name}</span>
+          <span style="font-size:11px;color:#8a8a86">${c.updated}</span>
+        </span>
+        <i class="ti ti-chevron-${c.open ? 'up' : 'down'}" style="font-size:16px;color:#8a8a86" aria-hidden="true"></i>
+      </button>
+      ${c.open ? `<div style="padding:0 14px 14px;display:flex;flex-direction:column;gap:8px">
+        ${c.sections.map((s,si) => `
+          <div style="background:#f4f2ec;border-radius:12px;padding:10px 12px">
+            <button class="sec-toggle" data-ci="${ci}" data-si="${si}" style="all:unset;cursor:pointer;display:flex;align-items:center;justify-content:space-between;width:100%;${s.open ? 'margin-bottom:8px' : ''}">
+              <span style="display:flex;align-items:center;gap:7px">
+                <i class="ti ${s.icon}" style="font-size:15px;color:#1f4a3d" aria-hidden="true"></i>
+                <span style="font-weight:500;font-size:13px;color:#1a1a17">${s.title}</span>
+              </span>
+              <i class="ti ti-chevron-${s.open ? 'up' : 'down'}" style="font-size:14px;color:#8a8a86" aria-hidden="true"></i>
+            </button>
+            ${s.open ? `
+              ${s.disclaimer ? `<div style="display:flex;gap:5px;align-items:center;background:#fff;border-radius:8px;padding:6px 8px;margin-bottom:8px;white-space:nowrap;overflow:hidden">
+                <i class="ti ti-info-circle" style="font-size:12px;color:#8a8a86;flex-shrink:0" aria-hidden="true"></i>
+                <p style="font-size:10px;color:#8a8a86;margin:0;text-overflow:ellipsis;overflow:hidden">Reference only — confirm dosage with family.</p>
+              </div>` : ''}
+              ${s.rows.map((r,ri) => `<p style="font-size:12.5px;margin:0 0 ${ri < s.rows.length-1 ? '5px' : '0'};color:#4a4a45"><span style="color:#8a8a86">${r[0]} · </span>${r[1]}</p>`).join('')}
+            ` : ''}
+          </div>
+        `).join('')}
+      </div>` : ''}
+    </div>
+  `).join('');
+
+  el.querySelectorAll('.child-toggle').forEach(btn => btn.addEventListener('click', () => {
+    children[parseInt(btn.dataset.i)].open = !children[parseInt(btn.dataset.i)].open;
+    renderChildren();
+  }));
+  el.querySelectorAll('.sec-toggle').forEach(btn => btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const ci = parseInt(btn.dataset.ci), si = parseInt(btn.dataset.si);
+    children[ci].sections[si].open = !children[ci].sections[si].open;
+    renderChildren();
+  }));
+}
+renderChildren();
+
+document.getElementById('ackBtn').addEventListener('click', function(){
+  document.getElementById('ackLabel').textContent = 'Confirmed at ' + new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
+  this.style.opacity = '0.7';
+  this.disabled = true;
+});
+</script>
