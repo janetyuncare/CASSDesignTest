@@ -1,5 +1,6 @@
+
 <div style="max-width:380px;margin:0 auto">
-<h2 class="sr-only">[Provider view] Check-in Screen w/ Care Plan Section chev v2</h2>
+<h2 class="sr-only">[Provider view] Check-in Screen w/ Care Plan Section</h2>
 
 <div style="text-align:center;font-size:12px;letter-spacing:1px;color:#8a8a86;margin-bottom:10px;text-transform:uppercase">Caregiver — Sarah</div>
 
@@ -30,9 +31,10 @@
     <p style="font-weight:600;font-size:15px;color:#1a1a17;margin:0 2px">Pre-shift checklist</p>
 
     <div style="background:#fff;border-radius:16px;padding:2px 4px">
-      <button id="checklistToggle" style="all:unset;cursor:pointer;display:flex;align-items:center;justify-content:space-between;width:100%;padding:14px">
+      <button id="checklistToggle" style="all:unset;cursor:pointer;display:flex;align-items:center;justify-content:space-between;width:100%;padding:14px;box-sizing:border-box">
         <span style="font-weight:600;font-size:15px;color:#1a1a17">First 15 min</span>
-        <svg id="checklistChevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8a8a86" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>      </button>
+        <svg id="checklistChevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8a8a86" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>
+      </button>
       <div id="checklistBody" style="padding:0 14px 12px"></div>
     </div>
 
@@ -71,6 +73,11 @@
 </div>
 
 <script>
+function chevronSvg(open, size, color){
+  const pts = open ? '18 15 12 9 6 15' : '6 9 12 15 18 9';
+  return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="${color}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><polyline points="${pts}"></polyline></svg>`;
+}
+
 const checklist = [
   'Front door locked','Child count confirmed (2)','Hazards scanned','Care plan reviewed'
 ];
@@ -86,7 +93,7 @@ function renderChecklist(){
     </div>
   `).join('');
   document.getElementById('checklistBody').style.display = checklistOpen ? 'block' : 'none';
-  document.getElementById('checklistChevron').className = 'ti ti-chevron-' + (checklistOpen ? 'up' : 'down');
+  document.getElementById('checklistChevron').outerHTML = chevronSvg(checklistOpen, 16, '#8a8a86').replace('<svg', '<svg id="checklistChevron"');
 }
 document.getElementById('checklistToggle').addEventListener('click', () => { checklistOpen = !checklistOpen; renderChecklist(); });
 renderChecklist();
@@ -130,22 +137,22 @@ function renderChildren(){
   const el = document.getElementById('childCards');
   el.innerHTML = children.map((c,ci) => `
     <div style="background:#fff;border-radius:16px;padding:2px 4px">
-      <button class="child-toggle" data-i="${ci}" style="all:unset;cursor:pointer;display:flex;align-items:center;justify-content:space-between;width:100%;padding:14px">
+      <button class="child-toggle" data-i="${ci}" style="all:unset;cursor:pointer;display:flex;align-items:center;justify-content:space-between;width:100%;padding:14px;box-sizing:border-box">
         <span style="display:flex;align-items:baseline;gap:8px">
           <span style="font-weight:600;font-size:15px;color:#1a1a17">${c.name}</span>
           <span style="font-size:11px;color:#8a8a86">${c.updated}</span>
         </span>
-        <i class="ti ti-chevron-${c.open ? 'up' : 'down'}" style="font-size:16px;color:#8a8a86" aria-hidden="true"></i>
+        ${chevronSvg(c.open, 16, '#8a8a86')}
       </button>
       ${c.open ? `<div style="padding:0 14px 14px;display:flex;flex-direction:column;gap:8px">
         ${c.sections.map((s,si) => `
           <div style="background:#f4f2ec;border-radius:12px;padding:10px 12px">
-            <button class="sec-toggle" data-ci="${ci}" data-si="${si}" style="all:unset;cursor:pointer;display:flex;align-items:center;justify-content:space-between;width:100%;${s.open ? 'margin-bottom:8px' : ''}">
+            <button class="sec-toggle" data-ci="${ci}" data-si="${si}" style="all:unset;cursor:pointer;display:flex;align-items:center;justify-content:space-between;width:100%;box-sizing:border-box;${s.open ? 'margin-bottom:8px' : ''}">
               <span style="display:flex;align-items:center;gap:7px">
                 <i class="ti ${s.icon}" style="font-size:15px;color:#1f4a3d" aria-hidden="true"></i>
                 <span style="font-weight:500;font-size:13px;color:#1a1a17">${s.title}</span>
               </span>
-              <i class="ti ti-chevron-${s.open ? 'up' : 'down'}" style="font-size:14px;color:#8a8a86" aria-hidden="true"></i>
+              ${chevronSvg(s.open, 14, '#8a8a86')}
             </button>
             ${s.open ? `
               ${s.disclaimer ? `<div style="display:flex;gap:5px;align-items:center;background:#fff;border-radius:8px;padding:6px 8px;margin-bottom:8px;white-space:nowrap;overflow:hidden">
