@@ -1,141 +1,319 @@
-<div style="max-width:460px">
-<h2 class="sr-only">Full seeker profile edit page with my household section and care plan</h2>
 
-<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
-  <p style="font-weight:500;font-size:17px;margin:0">Edit your profile</p>
-  <span style="display:flex;align-items:center;gap:5px;font-size:13px;color:var(--text-accent)">
-    <i class="ti ti-eye" style="font-size:15px" aria-hidden="true"></i>
-    Preview
-  </span>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Seeker Profile + Care Plan</title>
+<style>
+  :root{
+    --surface-1:#f3f2ee;
+    --surface-2:#ffffff;
+    --border:#e2e0d8;
+    --text-primary:#1a1a17;
+    --text-secondary:#5c5c56;
+    --text-muted:#8a8a86;
+    --text-accent:#2f6b52;
+    --fill-primary:#2f6b52;
+    --on-primary:#ffffff;
+    --radius:10px;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    padding:32px 16px;
+    background:#eceae3;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    color:var(--text-primary);
+    display:flex;
+    justify-content:center;
+  }
+  input, select, button{
+    font-family:inherit;
+    font-size:14px;
+  }
+  input[type="text"], select{
+    border:0.5px solid var(--border);
+    border-radius:8px;
+    padding:9px 11px;
+    background:#fff;
+    color:var(--text-primary);
+  }
+  input[type="text"]:focus, select:focus{
+    outline:2px solid var(--text-accent);
+    outline-offset:1px;
+  }
+  button{
+    border:none;
+    border-radius:var(--radius);
+    background:var(--surface-1);
+    color:var(--text-primary);
+    padding:10px;
+    cursor:pointer;
+  }
+  button.primary{
+    background:var(--fill-primary);
+    color:var(--on-primary);
+  }
+  a{ text-decoration:none }
+</style>
+</head>
+<body>
 
-<div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">
-  <p style="font-size:22px;font-weight:500;margin:0">Winnie</p>
-  <span style="font-size:12px;color:var(--text-accent)">Edit nickname</span>
-</div>
-
-<div style="background:var(--surface-1);border-radius:12px;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;margin-bottom:8px">
-  <i class="ti ti-photo" style="font-size:24px;color:var(--text-muted)" aria-hidden="true"></i>
-</div>
-<p style="font-size:12px;color:var(--text-muted);margin:0 0 8px">Your primary photo</p>
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px">
-  <div style="background:var(--surface-1);border-radius:12px;aspect-ratio:1;display:flex;align-items:center;justify-content:center;position:relative">
-    <i class="ti ti-photo" style="font-size:20px;color:var(--text-muted)" aria-hidden="true"></i>
-    <div style="position:absolute;top:6px;right:6px;width:18px;height:18px;border-radius:50%;background:var(--fill-primary);display:flex;align-items:center;justify-content:center"><i class="ti ti-plus" style="font-size:12px;color:var(--on-primary)" aria-hidden="true"></i></div>
-  </div>
-  <div style="background:var(--surface-1);border-radius:12px;aspect-ratio:1;display:flex;align-items:center;justify-content:center;position:relative">
-    <i class="ti ti-photo" style="font-size:20px;color:var(--text-muted)" aria-hidden="true"></i>
-    <div style="position:absolute;top:6px;right:6px;width:18px;height:18px;border-radius:50%;background:var(--fill-primary);display:flex;align-items:center;justify-content:center"><i class="ti ti-plus" style="font-size:12px;color:var(--on-primary)" aria-hidden="true"></i></div>
-  </div>
-</div>
-<button style="width:100%;margin-bottom:24px">Share what you're looking for</button>
-
-<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
-  <p style="font-weight:500;font-size:15px;margin:0">Personality traits</p>
-  <i class="ti ti-edit" style="font-size:15px;color:var(--text-accent)" aria-hidden="true"></i>
-</div>
-<div style="margin-bottom:24px"><span style="font-size:12px;background:var(--surface-1);color:var(--text-secondary);padding:4px 10px;border-radius:20px">Add traits</span></div>
-
-<div style="margin-bottom:24px">
-  <p style="font-weight:500;font-size:15px;margin:0 0 8px">About me</p>
-  <div style="background:var(--surface-1);border-radius:12px;padding:12px 14px">
-    <p style="font-size:13px;color:var(--text-secondary);margin:0;line-height:1.6">We are looking for a sitter for 2 children, 2 and 3 years old. My children enjoy the outdoors. They are active and like sports. They also like arts and crafts. One of the kids has a peanut allergy. I want someone who is reliable and experienced.</p>
-  </div>
-</div>
-
-<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
-  <p style="font-weight:500;font-size:15px;margin:0">Hobbies and interests</p>
-  <i class="ti ti-edit" style="font-size:15px;color:var(--text-accent)" aria-hidden="true"></i>
-</div>
-<div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:28px">
-  <span style="font-size:12px;background:var(--fill-primary);color:var(--on-primary);padding:4px 10px;border-radius:20px">Vegan food</span>
-  <span style="font-size:12px;background:var(--fill-primary);color:var(--on-primary);padding:4px 10px;border-radius:20px">Sci-fi movies</span>
-  <span style="font-size:12px;background:var(--fill-primary);color:var(--on-primary);padding:4px 10px;border-radius:20px">Board games</span>
-</div>
-
-<div style="border-top:0.5px solid var(--border);padding-top:20px;margin-bottom:8px">
-  <p style="font-weight:500;font-size:16px;margin:0 0 4px">My household</p>
-  <p style="font-size:12px;color:var(--text-muted);margin:0 0 14px">Only you can see this · <a href="#" style="color:var(--text-accent)">Edit visibility</a></p>
-</div>
-
-<p style="font-size:13px;font-weight:500;color:var(--text-secondary);margin:0 0 8px">Children</p>
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px">
-
-  <div style="background:var(--surface-2);border:0.5px solid var(--border);border-radius:12px;overflow:hidden">
-    <div style="aspect-ratio:1;background:var(--surface-1);display:flex;align-items:center;justify-content:center">
-      <i class="ti ti-photo" style="font-size:22px;color:var(--text-muted)" aria-hidden="true"></i>
-    </div>
-    <div style="padding:10px 12px">
-      <p style="font-weight:500;font-size:14px;margin:0 0 3px">Karlie, 2</p>
-      <p style="font-size:12px;color:var(--text-secondary);margin:0 0 6px;line-height:1.4">She's a fun, giggly kid who's very active…</p>
-      <p style="font-size:11px;margin:0 0 8px"><span style="font-weight:500">Special needs: </span>Peanut allergy</p>
-      <div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:10px">
-        <span style="font-size:11px;background:var(--fill-primary);color:var(--on-primary);padding:3px 8px;border-radius:20px">Playful</span>
-        <span style="font-size:11px;background:var(--fill-primary);color:var(--on-primary);padding:3px 8px;border-radius:20px">Crafty</span>
-      </div>
-      <button class="care-plan-btn" data-name="Karlie" style="width:100%;display:flex;align-items:center;justify-content:center;gap:5px;font-size:12px;font-weight:500;padding:7px;border-radius:var(--radius)">
-        <i class="ti ti-clipboard-heart" style="font-size:14px" aria-hidden="true"></i>
-        Care plan
-      </button>
-    </div>
-  </div>
-
-  <div style="background:var(--surface-2);border:0.5px solid var(--border);border-radius:12px;overflow:hidden">
-    <div style="aspect-ratio:1;background:var(--surface-1);display:flex;align-items:center;justify-content:center">
-      <i class="ti ti-photo" style="font-size:22px;color:var(--text-muted)" aria-hidden="true"></i>
-    </div>
-    <div style="padding:10px 12px">
-      <p style="font-weight:500;font-size:14px;margin:0 0 3px">Timothy, 3</p>
-      <p style="font-size:12px;color:var(--text-secondary);margin:0 0 6px;line-height:1.4">He loves cars and Shrek</p>
-      <div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:10px">
-        <span style="font-size:11px;background:var(--fill-primary);color:var(--on-primary);padding:3px 8px;border-radius:20px">Quiet</span>
-      </div>
-      <button class="care-plan-btn" data-name="Timothy" style="width:100%;display:flex;align-items:center;justify-content:center;gap:5px;font-size:12px;font-weight:500;padding:7px;border-radius:var(--radius)">
-        <i class="ti ti-clipboard-heart" style="font-size:14px" aria-hidden="true"></i>
-        Care plan
-      </button>
-    </div>
-  </div>
-
-</div>
-
-<p style="font-size:13px;font-weight:500;color:var(--text-secondary);margin:0 0 8px">Pets</p>
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px">
-
-  <div style="background:var(--surface-2);border:0.5px solid var(--border);border-radius:12px;overflow:hidden">
-    <div style="aspect-ratio:1;background:var(--surface-1);display:flex;align-items:center;justify-content:center">
-      <i class="ti ti-photo" style="font-size:22px;color:var(--text-muted)" aria-hidden="true"></i>
-    </div>
-    <div style="padding:10px 12px">
-      <p style="font-weight:500;font-size:14px;margin:0 0 3px">Tiger, Labrador retriever, 2</p>
-      <p style="font-size:12px;color:var(--text-secondary);margin:0 0 6px;line-height:1.4">She's a fun, giggly kid who's very active…</p>
-      <p style="font-size:11px;margin:0 0 8px"><span style="font-weight:500">Special needs: </span>Takes medication</p>
-      <div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:10px">
-        <span style="font-size:11px;background:var(--fill-primary);color:var(--on-primary);padding:3px 8px;border-radius:20px">Outdoorsy</span>
-      </div>
-      <button class="care-plan-btn" data-name="Tiger" style="width:100%;display:flex;align-items:center;justify-content:center;gap:5px;font-size:12px;font-weight:500;padding:7px;border-radius:var(--radius)">
-        <i class="ti ti-clipboard-heart" style="font-size:14px" aria-hidden="true"></i>
-        Care plan
-      </button>
-    </div>
-  </div>
-
-</div>
-
-<div style="border-top:0.5px solid var(--border);padding-top:20px">
-  <p style="font-weight:500;font-size:15px;margin:0 0 8px">Important contacts</p>
-  <div style="display:flex;gap:6px;flex-wrap:wrap">
-    <span style="font-size:12px;background:var(--surface-1);color:var(--text-secondary);padding:4px 10px;border-radius:20px">Add emergency contact</span>
-    <span style="font-size:12px;background:var(--surface-1);color:var(--text-secondary);padding:4px 10px;border-radius:20px">Add veterinarian</span>
-  </div>
-</div>
-
+<div style="max-width:460px;width:100%">
+  <div id="screenProfile"></div>
+  <div id="screenCarePlan" style="display:none"></div>
 </div>
 
 <script>
+// ---------- mock avatar illustrations (inline SVG placeholders, no external images) ----------
+function personAvatar(bg, hair){
+  return `<svg viewBox="0 0 80 80" width="100%" height="100%" preserveAspectRatio="xMidYMid slice" style="display:block">
+    <rect width="80" height="80" fill="${bg}"/>
+    <circle cx="40" cy="32" r="14" fill="#fff" opacity="0.9"/>
+    <path d="M18 74c0-14 10-24 22-24s22 10 22 24" fill="#fff" opacity="0.9"/>
+    <path d="M26 24c2-8 8-13 14-13s12 5 14 13c-2-2-6-3-14-3s-12 1-14 3Z" fill="${hair}"/>
+  </svg>`;
+}
+function dogAvatar(bg, fur){
+  return `<svg viewBox="0 0 80 80" width="100%" height="100%" preserveAspectRatio="xMidYMid slice" style="display:block">
+    <rect width="80" height="80" fill="${bg}"/>
+    <ellipse cx="40" cy="42" rx="17" ry="15" fill="${fur}"/>
+    <ellipse cx="28" cy="28" rx="6" ry="10" fill="${fur}" transform="rotate(-20 28 28)"/>
+    <ellipse cx="52" cy="28" rx="6" ry="10" fill="${fur}" transform="rotate(20 52 28)"/>
+    <circle cx="34" cy="40" r="2.2" fill="#3a2a1a"/>
+    <circle cx="46" cy="40" r="2.2" fill="#3a2a1a"/>
+    <ellipse cx="40" cy="47" rx="3" ry="2.2" fill="#3a2a1a"/>
+  </svg>`;
+}
+function abstractPhoto(c1, c2){
+  return `<svg viewBox="0 0 80 80" width="100%" height="100%" preserveAspectRatio="xMidYMid slice" style="display:block">
+    <rect width="80" height="80" fill="${c1}"/>
+    <circle cx="60" cy="20" r="26" fill="${c2}" opacity="0.6"/>
+    <circle cx="15" cy="65" r="22" fill="${c2}" opacity="0.4"/>
+  </svg>`;
+}
+
+// ---------- care plan field data ----------
+const disclaimer = `<div style="display:flex;gap:8px;align-items:flex-start;background:var(--surface-1);border-radius:var(--radius);padding:8px 10px;margin-bottom:12px">
+  <span style="font-size:14px;color:var(--text-muted)">&#9432;</span>
+  <p style="font-size:12px;color:var(--text-muted);margin:0;line-height:1.5">Reference only, not medical instruction. Confirm dosage and administration directly before giving any medication.</p>
+</div>`;
+
+const carePlanData = {
+  child: [
+    {emoji:'&#127911;', title:'Health and safety', disclaimer:true, fields:[
+      {label:'Allergies', ph:'e.g. Peanuts, penicillin'},
+      {label:'Medical conditions to be aware of', ph:'e.g. Asthma, may need inhaler'},
+      {label:'Medication reminders', ph:'e.g. Reminder around 3pm, confirm details with parent'}]},
+    {emoji:'&#128337;', title:'Daily routine', fields:[
+      {label:'Meals and snacks', ph:'e.g. Lunch at noon, no dairy'},
+      {label:'Nap schedule', ph:'e.g. Naps 1-3pm, needs white noise'},
+      {label:'Screen time rules', ph:'e.g. 30 min after homework'}]},
+    {emoji:'&#128522;', title:'Behavior and preferences', fields:[
+      {label:'Comfort items', ph:'e.g. Blue blanket for naps'},
+      {label:'Behavioral notes', ph:'e.g. Gets overwhelmed by loud noise'}]},
+    {emoji:'&#128222;', title:'Emergency info', fields:[
+      {label:'Emergency contacts (in order)', ph:'e.g. 1. Mom 555-0100  2. Grandma 555-0110'},
+      {label:'Pediatrician', ph:'e.g. Dr. Lee, 555-0120'},
+      {label:'School / daycare pickup notes', ph:'e.g. Only Dad or Nanny may pick up'}]}
+  ],
+  pet: [
+    {emoji:'&#128062;', title:'About your pet', fields:[
+      {label:'Breed, age, weight', ph:'e.g. Labrador, 4 years, 65 lbs'},
+      {label:'Temperament', ph:'e.g. Friendly, nervous around strangers'}]},
+    {emoji:'&#127831;', title:'Feeding and routine', fields:[
+      {label:'Feeding schedule', ph:'e.g. 2 cups dry food, 8am and 6pm'},
+      {label:'Walk / exercise routine', ph:'e.g. 30 min walk, avoid off-leash areas'}]},
+    {emoji:'&#127911;', title:'Health and safety', disclaimer:true, fields:[
+      {label:'Conditions or allergies to be aware of', ph:'e.g. Hip dysplasia, allergic to chicken'},
+      {label:'Medication reminders', ph:'e.g. Reminder around 6pm, confirm details with owner'}]},
+    {emoji:'&#128222;', title:'Emergency info', fields:[
+      {label:'Owner contact', ph:'e.g. 555-0150'},
+      {label:'Veterinarian', ph:'e.g. Oakview Vet Clinic, 555-0160'}]}
+  ]
+};
+
+// ---------- recipients (linking household cards to their care plan type + existing values) ----------
+const recipients = {
+  Karlie: { type:'child', values:{ 'Allergies':'Peanut allergy' } },
+  Timothy: { type:'child', values:{} },
+  Tiger: { type:'pet', values:{ 'Conditions or allergies to be aware of':'Takes medication' } }
+};
+
+function renderCarePlanScreen(name){
+  const r = recipients[name];
+  const sections = carePlanData[r.type];
+  const screen = document.getElementById('screenCarePlan');
+  screen.innerHTML = `
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:18px">
+      <button id="backBtn" style="all:unset;cursor:pointer;display:flex;padding:4px">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+      </button>
+      <p style="font-weight:500;font-size:16px;margin:0">${name}'s care plan</p>
+    </div>
+
+    ${sections.map(s => `
+      <div style="background:var(--surface-2);border:0.5px solid var(--border);border-radius:12px;padding:1rem 1.25rem;margin-bottom:12px">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">
+          <span style="font-size:17px">${s.emoji}</span>
+          <p style="font-weight:500;font-size:15px;margin:0">${s.title}</p>
+        </div>
+        ${s.disclaimer ? disclaimer : ''}
+        ${s.fields.map(f => `
+          <div style="margin-bottom:10px">
+            <label style="font-size:13px;color:var(--text-secondary);display:block;margin-bottom:4px">${f.label}</label>
+            <input type="text" placeholder="${f.ph}" value="${(r.values && r.values[f.label]) || ''}" style="width:100%" />
+          </div>
+        `).join('')}
+      </div>
+    `).join('')}
+
+    <button id="saveCarePlanBtn" class="primary" style="width:100%;margin-top:4px">Save care plan</button>
+  `;
+
+  document.getElementById('backBtn').addEventListener('click', showProfileScreen);
+  document.getElementById('saveCarePlanBtn').addEventListener('click', showProfileScreen);
+}
+
+function showCarePlanScreen(name){
+  renderCarePlanScreen(name);
+  document.getElementById('screenProfile').style.display = 'none';
+  document.getElementById('screenCarePlan').style.display = 'block';
+  window.scrollTo(0,0);
+}
+
+function showProfileScreen(){
+  document.getElementById('screenCarePlan').style.display = 'none';
+  document.getElementById('screenProfile').style.display = 'block';
+  window.scrollTo(0,0);
+}
+
+// ---------- profile screen ----------
+document.getElementById('screenProfile').innerHTML = `
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+    <p style="font-weight:500;font-size:17px;margin:0">Edit your profile</p>
+    <span style="display:flex;align-items:center;gap:5px;font-size:13px;color:var(--text-accent)">
+      &#128065; Preview
+    </span>
+  </div>
+
+  <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">
+    <p style="font-size:22px;font-weight:500;margin:0">Winnie</p>
+    <span style="font-size:12px;color:var(--text-accent)">Edit nickname</span>
+  </div>
+
+  <div style="background:var(--surface-1);border-radius:12px;aspect-ratio:16/9;overflow:hidden;margin-bottom:8px">
+    ${abstractPhoto('#e7dfce', '#c9a04f')}
+  </div>
+  <p style="font-size:12px;color:var(--text-muted);margin:0 0 8px">Your primary photo</p>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px">
+    <div style="border-radius:12px;aspect-ratio:1;overflow:hidden;position:relative">
+      ${personAvatar('#dce8e2', '#3f5b4f')}
+      <div style="position:absolute;top:6px;right:6px;width:18px;height:18px;border-radius:50%;background:var(--fill-primary);display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;line-height:1">+</div>
+    </div>
+    <div style="border-radius:12px;aspect-ratio:1;overflow:hidden;position:relative">
+      ${abstractPhoto('#f0e2df', '#c97f6a')}
+      <div style="position:absolute;top:6px;right:6px;width:18px;height:18px;border-radius:50%;background:var(--fill-primary);display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;line-height:1">+</div>
+    </div>
+  </div>
+  <button style="width:100%;margin-bottom:24px">Share what you're looking for</button>
+
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+    <p style="font-weight:500;font-size:15px;margin:0">Personality traits</p>
+    <span style="color:var(--text-accent);font-size:14px">&#9998;</span>
+  </div>
+  <div style="margin-bottom:24px"><span style="font-size:12px;background:var(--surface-1);color:var(--text-secondary);padding:4px 10px;border-radius:20px">Add traits</span></div>
+
+  <div style="margin-bottom:24px">
+    <p style="font-weight:500;font-size:15px;margin:0 0 8px">About me</p>
+    <div style="background:var(--surface-1);border-radius:12px;padding:12px 14px">
+      <p style="font-size:13px;color:var(--text-secondary);margin:0;line-height:1.6">We are looking for a sitter for 2 children, 2 and 3 years old. My children enjoy the outdoors. They are active and like sports. They also like arts and crafts. One of the kids has a peanut allergy. I want someone who is reliable and experienced.</p>
+    </div>
+  </div>
+
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+    <p style="font-weight:500;font-size:15px;margin:0">Hobbies and interests</p>
+    <span style="color:var(--text-accent);font-size:14px">&#9998;</span>
+  </div>
+  <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:28px">
+    <span style="font-size:12px;background:var(--fill-primary);color:var(--on-primary);padding:4px 10px;border-radius:20px">Vegan food</span>
+    <span style="font-size:12px;background:var(--fill-primary);color:var(--on-primary);padding:4px 10px;border-radius:20px">Sci-fi movies</span>
+    <span style="font-size:12px;background:var(--fill-primary);color:var(--on-primary);padding:4px 10px;border-radius:20px">Board games</span>
+  </div>
+
+  <div style="border-top:0.5px solid var(--border);padding-top:20px;margin-bottom:8px">
+    <p style="font-weight:500;font-size:16px;margin:0 0 4px">My household</p>
+    <p style="font-size:12px;color:var(--text-muted);margin:0 0 14px">Only you can see this &middot; <a href="#" style="color:var(--text-accent)">Edit visibility</a></p>
+  </div>
+
+  <p style="font-size:13px;font-weight:500;color:var(--text-secondary);margin:0 0 8px">Children</p>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px">
+
+    <div style="background:var(--surface-2);border:0.5px solid var(--border);border-radius:12px;overflow:hidden">
+      <div style="aspect-ratio:1">${personAvatar('#f4dbe2', '#7a3b46')}</div>
+      <div style="padding:10px 12px">
+        <p style="font-weight:500;font-size:14px;margin:0 0 3px">Karlie, 2</p>
+        <p style="font-size:12px;color:var(--text-secondary);margin:0 0 6px;line-height:1.4">She's a fun, giggly kid who's very active&hellip;</p>
+        <p style="font-size:11px;margin:0 0 8px"><span style="font-weight:500">Special needs: </span>Peanut allergy</p>
+        <div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:10px">
+          <span style="font-size:11px;background:var(--fill-primary);color:var(--on-primary);padding:3px 8px;border-radius:20px">Playful</span>
+          <span style="font-size:11px;background:var(--fill-primary);color:var(--on-primary);padding:3px 8px;border-radius:20px">Crafty</span>
+        </div>
+        <button class="care-plan-btn" data-name="Karlie" style="width:100%;display:flex;align-items:center;justify-content:center;gap:5px;font-size:12px;font-weight:500;padding:7px;border-radius:var(--radius)">
+          &#128220; Care plan
+        </button>
+      </div>
+    </div>
+
+    <div style="background:var(--surface-2);border:0.5px solid var(--border);border-radius:12px;overflow:hidden">
+      <div style="aspect-ratio:1">${personAvatar('#dbe4f4', '#2e3f66')}</div>
+      <div style="padding:10px 12px">
+        <p style="font-weight:500;font-size:14px;margin:0 0 3px">Timothy, 3</p>
+        <p style="font-size:12px;color:var(--text-secondary);margin:0 0 6px;line-height:1.4">He loves cars and Shrek</p>
+        <div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:10px">
+          <span style="font-size:11px;background:var(--fill-primary);color:var(--on-primary);padding:3px 8px;border-radius:20px">Quiet</span>
+        </div>
+        <button class="care-plan-btn" data-name="Timothy" style="width:100%;display:flex;align-items:center;justify-content:center;gap:5px;font-size:12px;font-weight:500;padding:7px;border-radius:var(--radius)">
+          &#128220; Care plan
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <p style="font-size:13px;font-weight:500;color:var(--text-secondary);margin:0 0 8px">Pets</p>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px">
+
+    <div style="background:var(--surface-2);border:0.5px solid var(--border);border-radius:12px;overflow:hidden">
+      <div style="aspect-ratio:1">${dogAvatar('#f0e8d8', '#c9a15c')}</div>
+      <div style="padding:10px 12px">
+        <p style="font-weight:500;font-size:14px;margin:0 0 3px">Tiger, Labrador retriever, 2</p>
+        <p style="font-size:12px;color:var(--text-secondary);margin:0 0 6px;line-height:1.4">She's a fun, giggly kid who's very active&hellip;</p>
+        <p style="font-size:11px;margin:0 0 8px"><span style="font-weight:500">Special needs: </span>Takes medication</p>
+        <div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:10px">
+          <span style="font-size:11px;background:var(--fill-primary);color:var(--on-primary);padding:3px 8px;border-radius:20px">Outdoorsy</span>
+        </div>
+        <button class="care-plan-btn" data-name="Tiger" style="width:100%;display:flex;align-items:center;justify-content:center;gap:5px;font-size:12px;font-weight:500;padding:7px;border-radius:var(--radius)">
+          &#128220; Care plan
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <div style="border-top:0.5px solid var(--border);padding-top:20px">
+    <p style="font-weight:500;font-size:15px;margin:0 0 8px">Important contacts</p>
+    <div style="display:flex;gap:6px;flex-wrap:wrap">
+      <span style="font-size:12px;background:var(--surface-1);color:var(--text-secondary);padding:4px 10px;border-radius:20px">Add emergency contact</span>
+      <span style="font-size:12px;background:var(--surface-1);color:var(--text-secondary);padding:4px 10px;border-radius:20px">Add veterinarian</span>
+    </div>
+  </div>
+`;
+
 document.querySelectorAll('.care-plan-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    sendPrompt('Show me the care plan for ' + btn.dataset.name);
-  });
+  btn.addEventListener('click', () => showCarePlanScreen(btn.dataset.name));
 });
 </script>
+
+</body>
+</html>
